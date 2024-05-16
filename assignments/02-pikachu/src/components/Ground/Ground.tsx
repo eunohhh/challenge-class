@@ -70,6 +70,7 @@ function Ground() {
         setPosition({ top: newTop, left: newLeft, flip: newFlip });
     };
 
+    // tabIndex 필요함! key 입력 받을려면
     return (
         <div className="game-container" tabIndex={0} onKeyDown={handleKeyDown}>
             <div
