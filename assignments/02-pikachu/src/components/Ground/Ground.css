@@ -1,0 +1,21 @@
+.game-container {
+    width: 800px;
+    height: 800px;
+    border: 2px solid black;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    background-image: url("/grass.png");
+    outline: none; /* 키보드 포커스 시 기본 테두리 없앰  */
+}
+
+.pikachu {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
+
+.pikachu img {
+    width: 80px;
+    height: 80px;
+}
