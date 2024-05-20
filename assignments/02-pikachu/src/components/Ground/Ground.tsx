@@ -60,7 +60,7 @@ function Ground() {
                             flip: position.flip,
                         });
                         setIsJumping(false);
-                    }, 100); // 0.5초 후에 다시 내려오게 합니다.
+                    }, 100); // 0.1로 조정
                 }
                 break;
             default:
