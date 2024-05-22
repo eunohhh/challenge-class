@@ -1,10 +1,45 @@
+import { AppDispatch, RootState } from "@/redux/store";
+import { Memo, UPDATE } from "@/types/d";
+import formattedDate from "@/utils/getTime";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 function Article() {
+    const dispatch = useDispatch<AppDispatch>();
+    const memos = useSelector((state: RootState) => state.memo);
+    const [selectedMemoId, setSelectedMemoId] = useState<string | null>(null);
+
+    const [text, setText] = useState("");
+
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.target.value);
+
+        if (selectedMemoId) {
+            const updatedMemo: Memo = {
+                id: selectedMemoId,
+                contents: e.target.value,
+                time: formattedDate,
+            };
+
+            dispatch({
+                type: UPDATE,
+                payload: updatedMemo,
+            });
+        }
+    };
+
+    useEffect(() => {
+        if (memos.length > 0 && selectedMemoId === null) {
+            setSelectedMemoId(memos[0].id);
+            setText(memos[0].contents);
+        }
+    }, [memos, selectedMemoId]);
+
     return (
         <StyledArticle>
             <StyledSpan />
-            <StyledTextArea />
+            <StyledTextArea onChange={handleChange} value={text} />
         </StyledArticle>
     );
 }

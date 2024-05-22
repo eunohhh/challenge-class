@@ -1,12 +1,30 @@
+import { RootState } from "@/redux/store";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 function Ul() {
+    const memos = useSelector((state: RootState) => state.memo);
+    const [selectedId, setSelectedId] = useState<string>(memos[0].id);
+
+    const handleClick = (id: string) => () => {
+        setSelectedId(id);
+    };
+
     return (
         <StyledUl>
-            <StyleLi>
-                <StyledH6></StyledH6>
-                <StyledTime></StyledTime>
-            </StyleLi>
+            {memos.map((memo) => (
+                <StyleLi
+                    key={memo.id}
+                    onClick={handleClick(memo.id)}
+                    $isSelected={selectedId === memo.id}
+                >
+                    <StyledH6>
+                        {memo.contents === "" ? "새로운 메모" : memo.contents}
+                    </StyledH6>
+                    <StyledTime>{memo.time.slice(13)}</StyledTime>
+                </StyleLi>
+            ))}
         </StyledUl>
     );
 }
@@ -24,10 +42,11 @@ const StyledUl = styled.ul`
     overflow-x: hidden;
 `;
 
-const StyleLi = styled.li`
+const StyleLi = styled.li<{ $isSelected: boolean }>`
     height: 56px;
     border-radius: 4px;
-    background-color: rgb(255, 224, 127);
+    background-color: ${({ $isSelected }) =>
+        $isSelected ? "rgb(255, 224, 127)" : "rgb(255, 255, 255)"};
     width: 100%;
     padding: 12px 24px;
     cursor: pointer;
