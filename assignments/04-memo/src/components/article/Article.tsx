@@ -1,12 +1,13 @@
 import useMemoApp from "@/hooks/useMemoApp";
 import getTime from "@/utils/getTime";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 function Article() {
     const { memos, selected, updateMemo } = useMemoApp();
 
     const [text, setText] = useState("");
+    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
@@ -21,10 +22,18 @@ function Article() {
         }
     }, [memos, selected]);
 
+    useEffect(() => {
+        if (textAreaRef.current) textAreaRef.current.focus();
+    }, []);
+
     return (
         <StyledArticle>
             <StyledSpan>{getTime()}</StyledSpan>
-            <StyledTextArea onChange={handleChange} value={text} />
+            <StyledTextArea
+                ref={textAreaRef}
+                onChange={handleChange}
+                value={text}
+            />
         </StyledArticle>
     );
 }
