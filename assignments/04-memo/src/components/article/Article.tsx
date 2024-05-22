@@ -1,44 +1,29 @@
-import { AppDispatch, RootState } from "@/redux/store";
-import { Memo, UPDATE } from "@/types/d";
-import formattedDate from "@/utils/getTime";
+import useMemoApp from "@/hooks/useMemoApp";
+import getTime from "@/utils/getTime";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 function Article() {
-    const dispatch = useDispatch<AppDispatch>();
-    const memos = useSelector((state: RootState) => state.memo);
-    const [selectedMemoId, setSelectedMemoId] = useState<string | null>(null);
+    const { memos, selected, updateMemo } = useMemoApp();
 
     const [text, setText] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
 
-        if (selectedMemoId) {
-            const updatedMemo: Memo = {
-                id: selectedMemoId,
-                contents: e.target.value,
-                time: formattedDate,
-            };
-
-            dispatch({
-                type: UPDATE,
-                payload: updatedMemo,
-            });
-        }
+        updateMemo(e.target.value);
     };
 
     useEffect(() => {
-        if (memos.length > 0 && selectedMemoId === null) {
-            setSelectedMemoId(memos[0].id);
-            setText(memos[0].contents);
+        const selectedMemo = memos.find((memo) => memo.id === selected);
+        if (selectedMemo) {
+            setText(selectedMemo.contents);
         }
-    }, [memos, selectedMemoId]);
+    }, [memos, selected]);
 
     return (
         <StyledArticle>
-            <StyledSpan />
+            <StyledSpan>{getTime()}</StyledSpan>
             <StyledTextArea onChange={handleChange} value={text} />
         </StyledArticle>
     );

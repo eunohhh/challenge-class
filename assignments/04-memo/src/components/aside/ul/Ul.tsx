@@ -1,14 +1,11 @@
-import { RootState } from "@/redux/store";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import useMemoApp from "@/hooks/useMemoApp";
 import styled from "styled-components";
 
 function Ul() {
-    const memos = useSelector((state: RootState) => state.memo);
-    const [selectedId, setSelectedId] = useState<string>(memos[0].id);
+    const { memos, selected, selectMemo } = useMemoApp();
 
     const handleClick = (id: string) => () => {
-        setSelectedId(id);
+        selectMemo(id);
     };
 
     return (
@@ -17,7 +14,7 @@ function Ul() {
                 <StyleLi
                     key={memo.id}
                     onClick={handleClick(memo.id)}
-                    $isSelected={selectedId === memo.id}
+                    $isSelected={selected === memo.id}
                 >
                     <StyledH6>
                         {memo.contents === "" ? "새로운 메모" : memo.contents}

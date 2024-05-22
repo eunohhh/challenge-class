@@ -6,21 +6,41 @@ export interface Memo {
     time: string;
 }
 
+export interface MemoApp {
+    selected: string;
+    memos: Memo[];
+}
+
 export const CREATE = "memo/CREATE";
 export const DELETE = "memo/DELETE";
 export const UPDATE = "memo/UPDATE";
+export const SELECT = "memo/SELECT";
 
-// interface CreateAction extends UnknownAction {
-//     type: typeof CREATE;
-//     payload: string;
-// }
+interface CreateAction {
+    type: typeof CREATE;
+    payload: string;
+}
 
-// interface DeleteAction extends UnknownAction {
-//     type: typeof DELETE;
-//     payload: string;
-// }
+interface DeleteAction {
+    type: typeof DELETE;
+    payload: string;
+}
 
-// interface UpdateAction extends UnknownAction {
-//     type: typeof UPDATE;
-//     payload: Memo;
-// }
+interface SelectAction {
+    type: typeof SELECT;
+    payload: string;
+}
+
+interface UpdateAction {
+    type: typeof UPDATE;
+    payload: {
+        id: string;
+        contents: string;
+    };
+}
+
+export type MemoActionTypes =
+    | CreateAction
+    | DeleteAction
+    | SelectAction
+    | UpdateAction;

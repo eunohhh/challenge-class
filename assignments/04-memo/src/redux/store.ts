@@ -3,7 +3,7 @@ import memoReducer from "./reducers/memo.reducer";
 
 const store = configureStore({
     reducer: {
-        memo: memoReducer,
+        memoApp: memoReducer,
     },
 });
 

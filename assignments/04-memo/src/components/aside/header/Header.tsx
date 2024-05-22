@@ -1,10 +1,23 @@
+import useMemoApp from "@/hooks/useMemoApp";
 import styled from "styled-components";
 
 function Header() {
+    const { selected, createMemo, deleteMemo } = useMemoApp();
+
+    const handleAddButtonClick = () => {
+        createMemo("");
+    };
+
+    const handleDeleteButtonClick = () => {
+        deleteMemo(selected);
+    };
+
     return (
         <StyledHeader>
-            <StyledButton>새 메모 작성하기</StyledButton>
-            <StyledButton>삭제</StyledButton>
+            <StyledButton onClick={handleAddButtonClick}>
+                새 메모 작성하기
+            </StyledButton>
+            <StyledButton onClick={handleDeleteButtonClick}>삭제</StyledButton>
         </StyledHeader>
     );
 }
@@ -31,4 +44,10 @@ const StyledButton = styled.button`
     color: rgb(128, 128, 128);
     transition: all 120ms ease 0s;
     padding: 4px 8px;
+
+    &:hover {
+        color: rgb(18, 18, 18);
+        font-weight: 600;
+        cursor: pointer;
+    }
 `;
