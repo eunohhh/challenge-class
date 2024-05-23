@@ -10,18 +10,28 @@ function Ul() {
 
     return (
         <StyledUl>
-            {memos.map((memo) => (
-                <StyleLi
-                    key={memo.id}
-                    onClick={handleClick(memo.id)}
-                    $isSelected={selected === memo.id}
-                >
-                    <StyledH6>
-                        {memo.contents === "" ? "새로운 메모" : memo.contents}
-                    </StyledH6>
-                    <StyledTime>{memo.time.slice(13)}</StyledTime>
-                </StyleLi>
-            ))}
+            {memos.map((memo) => {
+                let h6String = "";
+                if (memo.contents.length > 14) {
+                    const sliced = memo.contents.substring(0, 15);
+                    h6String = `${sliced}...`;
+                } else {
+                    h6String = memo.contents;
+                }
+
+                return (
+                    <StyleLi
+                        key={memo.id}
+                        onClick={handleClick(memo.id)}
+                        $isSelected={selected === memo.id}
+                    >
+                        <StyledH6>
+                            {memo.contents === "" ? "새로운 메모" : h6String}
+                        </StyledH6>
+                        <StyledTime>{memo.time.slice(13)}</StyledTime>
+                    </StyleLi>
+                );
+            })}
         </StyledUl>
     );
 }

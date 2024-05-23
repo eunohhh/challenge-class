@@ -10,9 +10,9 @@ function Article() {
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value);
-
-        updateMemo(e.target.value);
+        const input = e.target.value;
+        setText(input);
+        updateMemo(input);
     };
 
     useEffect(() => {
