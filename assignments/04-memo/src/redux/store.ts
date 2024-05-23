@@ -1,7 +1,13 @@
+import { MemoAction, MemoApp } from "@/types/d";
 import { configureStore } from "@reduxjs/toolkit";
 import memoReducer from "./reducers/memo.reducer";
 
-const store = configureStore({
+const store = configureStore<
+    {
+        memoApp: MemoApp;
+    },
+    MemoAction
+>({
     reducer: {
         memoApp: memoReducer,
     },

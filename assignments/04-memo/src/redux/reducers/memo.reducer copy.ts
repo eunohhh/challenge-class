@@ -1,14 +1,14 @@
 import {
+    ActionType,
     CREATE,
     DELETE,
     Memo,
-    MemoAction,
     MemoApp,
     SELECT,
     UPDATE,
 } from "@/types/d";
 import getTime from "@/utils/getTime";
-import { Reducer } from "@reduxjs/toolkit";
+import { UnknownAction } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
 const initialUuid = uuid();
@@ -25,11 +25,11 @@ const initialState: MemoApp = {
 };
 // 흐미 이버전 타입 왜이렇게 어려울까요 ㅠㅠ
 // 공장 이므로 함수
-const memoReducer: Reducer<MemoApp, MemoAction> = (
+const memoReducer = (
     prevState = initialState,
-    action // MemoActionTypes
+    action: UnknownAction // MemoActionTypes
 ): MemoApp => {
-    switch (action.type) {
+    switch (action.type as ActionType) {
         case SELECT: {
             return {
                 selected: action.payload as string,

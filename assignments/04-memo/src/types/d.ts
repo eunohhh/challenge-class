@@ -1,5 +1,7 @@
 // import { UnknownAction } from "@reduxjs/toolkit";
 
+import { UnknownAction } from "@reduxjs/toolkit";
+
 export interface Memo {
     id: string;
     contents: string;
@@ -16,6 +18,11 @@ export const DELETE = "memo/DELETE";
 export const UPDATE = "memo/UPDATE";
 export const SELECT = "memo/SELECT";
 
+export type ActionType =
+    | typeof CREATE
+    | typeof DELETE
+    | typeof UPDATE
+    | typeof SELECT;
 interface CreateAction {
     type: typeof CREATE;
     payload: string;
@@ -33,10 +40,7 @@ interface SelectAction {
 
 interface UpdateAction {
     type: typeof UPDATE;
-    payload: {
-        id: string;
-        contents: string;
-    };
+    payload: string;
 }
 
 export type MemoActionTypes =
@@ -44,3 +48,8 @@ export type MemoActionTypes =
     | DeleteAction
     | SelectAction
     | UpdateAction;
+
+export interface MemoAction extends UnknownAction {
+    type: ActionType;
+    payload: string;
+}
