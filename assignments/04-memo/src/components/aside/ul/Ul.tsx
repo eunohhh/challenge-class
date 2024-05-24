@@ -1,26 +1,24 @@
 import useMemoApp from "@/hooks/useMemoApp";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Ul() {
     const { memos, selected, selectMemo } = useMemoApp();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const id: string = useLoaderData() as string;
 
     const handleClick = (id: string) => () => {
         selectMemo(id);
+        navigate(`/${id}`);
     };
 
     useEffect(() => {
-        setSearchParams({ id: selected });
-    }, [selected, setSearchParams]);
-
-    // searchParams 가 바뀔때
-    useEffect(() => {
-        const param = searchParams.get("id");
-
-        console.log(param);
-    }, [searchParams]);
+        // console.log(id);
+        if (id) {
+            selectMemo(id);
+        }
+    }, [id, selectMemo]);
 
     return (
         <StyledUl>

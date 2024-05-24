@@ -11,7 +11,7 @@ import getTime from "@/utils/getTime";
 import { Reducer } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
-const initialUuid = uuid();
+export const initialUuid = uuid();
 
 const initialState: MemoApp = {
     selected: initialUuid,
@@ -23,7 +23,6 @@ const initialState: MemoApp = {
         },
     ],
 };
-// 흐미 이버전 타입 왜이렇게 어려울까요 ㅠㅠ
 // 공장 이므로 함수
 const memoReducer: Reducer<MemoApp, MemoAction> = (
     prevState = initialState,

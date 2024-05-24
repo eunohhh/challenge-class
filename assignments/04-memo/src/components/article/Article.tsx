@@ -1,5 +1,6 @@
 import useMemoApp from "@/hooks/useMemoApp";
 import getTime from "@/utils/getTime";
+import { debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -9,10 +10,16 @@ function Article() {
     const [text, setText] = useState("");
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
+    const debouncedUpdateMemo = useRef<(input: string) => void>(
+        debounce((input: string) => {
+            updateMemo(input);
+        }, 200)
+    ).current;
+
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const input = e.target.value;
         setText(input);
-        updateMemo(input);
+        debouncedUpdateMemo(input);
     };
 
     useEffect(() => {

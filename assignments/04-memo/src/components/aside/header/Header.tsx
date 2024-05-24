@@ -1,8 +1,12 @@
 import useMemoApp from "@/hooks/useMemoApp";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Header() {
-    const { selected, createMemo, deleteMemo } = useMemoApp();
+    const navigate = useNavigate();
+    const { memos, selected, createMemo, deleteMemo } = useMemoApp();
+    const first = memos[0];
 
     const handleAddButtonClick = () => {
         createMemo("");
@@ -11,6 +15,10 @@ function Header() {
     const handleDeleteButtonClick = () => {
         deleteMemo(selected);
     };
+
+    useEffect(() => {
+        navigate(`/${first.id}`);
+    }, [first, navigate]);
 
     return (
         <StyledHeader>
