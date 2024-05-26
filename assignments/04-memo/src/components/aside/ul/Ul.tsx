@@ -1,29 +1,22 @@
 import useMemoApp from "@/hooks/useMemoApp";
-import { useEffect } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Ul() {
     const { memos, selected, selectMemo } = useMemoApp();
     const navigate = useNavigate();
-    const id: string = useLoaderData() as string;
 
+    // li 클릭시 메모 선택하면서, 주소도 /memoId 로 변경
     const handleClick = (id: string) => () => {
         selectMemo(id);
         navigate(`/${id}`);
     };
 
-    useEffect(() => {
-        // console.log(id);
-        if (id) {
-            selectMemo(id);
-        }
-    }, [id, selectMemo]);
-
     return (
         <StyledUl>
             {memos.map((memo) => {
                 let h6String = "";
+                // 메모의 길이가 14보다 높아지면 뒤에 생략하고 ... 처리
                 if (memo.contents.length > 14) {
                     const sliced = memo.contents.substring(0, 15);
                     h6String = `${sliced}...`;
@@ -38,8 +31,10 @@ function Ul() {
                         $isSelected={selected === memo.id}
                     >
                         <StyledH6>
+                            {/* 콘텐츠가 아직 없으면 "새로운 메모" 출력 */}
                             {memo.contents === "" ? "새로운 메모" : h6String}
                         </StyledH6>
+                        {/* 가공된 날짜 시간 정보 값에서 인덱스 13부터 표시 - 연월일 필요없으므로 */}
                         <StyledTime>{memo.time.slice(13)}</StyledTime>
                     </StyleLi>
                 );

@@ -24,6 +24,9 @@ const initialState: MemoApp = {
     ],
 };
 // 공장 이므로 함수
+// () => {
+//  switch 문...
+// }
 const memoReducer: Reducer<MemoApp, MemoAction> = (
     prevState = initialState,
     action // MemoActionTypes

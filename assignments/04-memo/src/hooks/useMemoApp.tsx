@@ -8,7 +8,7 @@ function useMemoApp() {
     const memos = useSelector((state: RootState) => state.memoApp.memos);
     const selected = useSelector((state: RootState) => state.memoApp.selected);
 
-    // 얘네들이 액션크리에이터임!
+    // 얘네들이 액션크리에이터
     const selectMemo = (memoId: string) =>
         dispatch({ type: SELECT, payload: memoId });
     const createMemo = (text: string) =>
