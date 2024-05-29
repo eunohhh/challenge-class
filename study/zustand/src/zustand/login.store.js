@@ -10,8 +10,11 @@ const useLoginStore = create(
     persist(
         (set, get) => ({
             isLoggedIn: false,
-            logIn: () => set(() => ({ isLoggedIn: true })),
-            logOut: () => set(() => ({ isLoggedIn: false })),
+            // 래핑 하는 것도 방법일 수 있다
+            functions: {
+                logIn: () => set(() => ({ isLoggedIn: true })),
+                logOut: () => set(() => ({ isLoggedIn: false })),
+            },
             school: {
                 class: {
                     students: [{ name: "진영" }],

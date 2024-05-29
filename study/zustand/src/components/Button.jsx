@@ -5,11 +5,15 @@ function Button() {
     // const logIn = useLoginStore((state) => state.logIn);
     // const logOut = useLoginStore((state) => state.logOut);
 
+    // const { logIn, logOut } = useLoginStore(
+    //     useShallow((state) => ({
+    //         logIn: state.logIn,
+    //         logOut: state.logOut,
+    //     }))
+    // );
+
     const { logIn, logOut } = useLoginStore(
-        useShallow((state) => ({
-            logIn: state.logIn,
-            logOut: state.logOut,
-        }))
+        useShallow((state) => state.functions)
     );
 
     console.log("버튼 리렌더링");
