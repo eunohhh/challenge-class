@@ -16,8 +16,7 @@ function App() {
             <Layout>
                 <Controller />
             </Layout>
-            {toasts.length > 0 &&
-                toasts.map((toast) => <ToastUl key={toast.id} />)}
+            {toasts.length > 0 && <ToastUl />}
         </>
     );
 }

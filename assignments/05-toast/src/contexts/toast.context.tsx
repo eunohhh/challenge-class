@@ -1,13 +1,15 @@
 import { ReactNode, createContext, useState } from "react";
-import { Toast } from "../types/d";
+import { v4 as uuid } from "uuid";
+import { Toast, ToastContextType } from "../types/d";
 
 interface Props {
     children: ReactNode;
 }
 
-const initialValue: { toasts: Toast[]; addToasts: () => void } = {
+const initialValue: ToastContextType = {
     toasts: [],
     addToasts: () => {},
+    delToasts: () => {},
 };
 
 const ToastContext = createContext(initialValue);
@@ -16,20 +18,23 @@ export const ToastProvider = ({ children }: Props) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
 
     const value = {
-        // open: (title, content) => {
-        //     const ele = <Modal title={title} content={content} />;
-        //     setModal(ele);
-        // },
         toasts,
-        addToasts: () => {
+        addToasts: (options: {
+            title: string;
+            content: string;
+            duration: number;
+        }) => {
             const test = {
-                id: "test",
-                title: "test",
-                contents: "testtest",
-                isOpen: true,
+                id: uuid(),
+                title: options.title,
+                contents: options.content,
+                duration: options.duration,
             };
-            console.log(test);
             setToasts((prev) => [...prev, test]);
+        },
+        delToasts: (id: string) => {
+            const filtered = toasts.filter((toast) => toast.id !== id);
+            setToasts(filtered);
         },
     };
 

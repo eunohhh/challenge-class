@@ -6,8 +6,8 @@ function Controller() {
 
     const [input, setInput] = useState({
         title: "Scheduled: Catch up",
-        contents: "Friday, February 10, 2023 at 5:57 PM",
-        exposeTime: "2000",
+        content: "Friday, February 10, 2023 at 5:57 PM",
+        duration: 2000,
     });
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,16 +19,16 @@ function Controller() {
                 setInput({ ...input, title: value });
                 break;
             case ":r1:":
-                setInput({ ...input, contents: value });
+                setInput({ ...input, content: value });
                 break;
             case ":r2:":
-                setInput({ ...input, exposeTime: value });
+                setInput({ ...input, duration: Number(value) });
                 break;
         }
     };
 
     const handleClick = () => {
-        addToasts();
+        addToasts(input);
     };
 
     return (
@@ -55,7 +55,7 @@ function Controller() {
                     <input
                         id=":r1:"
                         className="border px-4 py-2.5 rounded-md w-80"
-                        value={input.contents}
+                        value={input.content}
                         onChange={handleInputChange}
                     ></input>
                 </div>
@@ -67,7 +67,7 @@ function Controller() {
                         id=":r2:"
                         className="border px-4 py-2.5 rounded-md w-80"
                         type="number"
-                        value={input.exposeTime}
+                        value={input.duration}
                         onChange={handleInputChange}
                     ></input>
                 </div>
