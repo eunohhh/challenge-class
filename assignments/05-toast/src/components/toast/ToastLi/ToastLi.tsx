@@ -37,6 +37,12 @@ function ToastLi({ toast }: { toast: Toast }) {
         if (!isVisible) delToasts(toast.id);
     }, [isVisible, delToasts, toast.id]);
 
+    // shadow-lg => 기본 그림자
+    // p-6 => 패딩 1.5rem
+    // w-[320px] => width : 320px
+    // items-center => align-items : center
+    // !translate-x-0 => translate-x : 0px !important
+    // translate-x-[calc(100%+24px)] => calc 로 100% 보내고 p-6 이므로 1.5rem(24px) 만큼 더 보냄
     return (
         <>
             {isVisible && (
