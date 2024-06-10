@@ -1,0 +1,19 @@
+{
+    "name": "11_typescript",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "tsn": "ts-node ./src/hello-world.ts",
+        "tsc": "tsc ./src/hello-world.ts ",
+        "dev": "tsc --watch ./src/hello-world.ts & node --watch ./src/hello-world.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5"
+    }
+}
