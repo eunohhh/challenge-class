@@ -10,4 +10,12 @@
     .button + .button {
         @apply mt-3;
     }
+
+    .input {
+        @apply border border-gray-500 px-4 py-2 rounded-md;
+    }
+
+    .input + .input {
+        @apply mt-3;
+    }
 }
